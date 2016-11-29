@@ -1,0 +1,19 @@
+/**
+ * Tcss 342
+ * @author Yicong Yang
+ */
+public class HashTester {
+
+	public static void main(String[] args) {
+		HashDict a = new HashDict();
+		a.output();//for whole hash table
+		a.find("aenoopst"); // test for finding an exact value
+		a.find("famous");
+		a.find("123");
+		a.get("aenoopst"); // test for finding using key
+		a.get("famous");
+		a.get("123");
+
+	}
+
+}

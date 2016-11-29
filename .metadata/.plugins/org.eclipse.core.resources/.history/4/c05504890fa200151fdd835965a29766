@@ -1,0 +1,13 @@
+
+public class HashTester {
+
+	public static void main(String[] args) {
+		HashDict a = new HashDict();
+		a.output();
+		a.find("aenoopst");
+		a.find("famous");
+		a.find("123");
+
+	}
+
+}

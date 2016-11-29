@@ -1,0 +1,78 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Tester {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Diagraph a = new Diagraph ("synsets.txt");
+	}
+	
+	
+
+}
+class Diagraph {
+	private Map<Integer, Vertice> mySynset;
+	private List<ArrayList<Integer>> myHypernyms;
+	public Diagraph(String FileName) {
+		mySynset = new HashMap<>();
+		myHypernyms = new ArrayList<>();
+		readinS(FileName);
+	}
+	private final void readinS(String FileName) {
+		File in = new File(FileName);
+		try {
+			Scanner temp = new Scanner(in);
+			while (temp.hasNext()) {
+				String t = temp.nextLine();
+				
+				
+				
+				int i = 0; 
+				while (t.charAt(i) != ',') {
+					i ++;
+				}
+				int ID = Integer.valueOf(t.substring(0, i));
+				int j = i;
+				j ++;
+				while (t.charAt(j) != ',') {
+					j ++;
+				}
+				i++;
+				String Syn = t.substring(i, j);
+				j ++;
+				String Gloss = t.substring(j); 
+				System.out.println(ID);
+				temp.close();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+class Vertice {
+	private int myID;
+	private String mySyn;
+	private String myGloss;
+	public Vertice (int ID, String Synset, String gloss){
+		myID = ID;
+		mySyn = Synset;
+		myGloss = gloss;
+	}
+	public int getMyID() {
+		return myID;
+	}
+	public String getMySyn() {
+		return mySyn;
+	}
+	public String getMyGloss() {
+		return myGloss;
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;HuffmanTreeNode.letter&apos; in &apos;HuffmanTreeNode&apos;&#x0D;&#x0A;- Original project: &apos;Huffman tree&apos;&#x0D;&#x0A;- Original element: &apos;HuffmanTreeNode.letter&apos;&#x0D;&#x0A;- Getter method name: &apos;getLetter&apos;&#x0D;&#x0A;- Setter method name: &apos;setLetter&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;letter&apos;" flags="589830" getter="getLetter" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;{HuffmanTreeNode.java[HuffmanTreeNode^letter" insertion="6" setter="setLetter" stamp="1447284058687" version="1.0" visibility="1"/>
+</session>

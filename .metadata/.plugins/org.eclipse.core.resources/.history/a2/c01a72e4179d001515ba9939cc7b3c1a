@@ -1,0 +1,52 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Tester {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	class Diagraph {
+		private Map<Integer, Vertice> mySynset;
+		private List<ArrayList<Integer>> myHypernyms;
+		public Diagraph(String FileName) {
+			readinS(FileName);
+		}
+		private final void readinS(String FileName) {
+			File in = new File(FileName);
+			try {
+				Scanner temp = new Scanner(in);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	class Vertice {
+		private int myID;
+		private String mySyn;
+		private String myGloss;
+		public Vertice (int ID, String Synset, String gloss){
+			myID = ID;
+			mySyn = Synset;
+			myGloss = gloss;
+		}
+		public int getMyID() {
+			return myID;
+		}
+		public String getMySyn() {
+			return mySyn;
+		}
+		public String getMyGloss() {
+			return myGloss;
+		}
+	}
+
+}

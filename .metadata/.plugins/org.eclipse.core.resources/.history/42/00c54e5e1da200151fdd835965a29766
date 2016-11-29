@@ -1,0 +1,21 @@
+/**
+ * 
+ * 
+ * my hash function only reads 6 characters from the string instead of n characters
+ * thus it is better than O(log(n))
+ * 
+ * 
+ * Tcss 342
+ * @author Yicong Yang
+ */
+public class HashTester {
+	/**
+	 * main method for testing
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		HashDict a = new HashDict();
+		a.output();//for whole hash table
+	}
+
+}

@@ -1,0 +1,98 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Diagraph {
+	private Map<Integer, Vertice> myVerticeSet;
+	private List<ArrayList<Integer>> myHypernyms;
+	public Diagraph(String FileName) {
+		myVerticeSet = new HashMap<>();
+		myHypernyms = new ArrayList<>();
+		readinS(FileName);
+	}
+	private final void readinS(String VerticeName) {
+		File in = new File(VerticeName);
+		try {
+			Scanner temp = new Scanner(in);
+			while (temp.hasNext()) {
+				String t = temp.nextLine();
+				int i = 0; 
+				while (t.charAt(i) != ',') {
+					i ++;
+				}
+				int ID = Integer.valueOf(t.substring(0, i));
+				int j = i;
+				j ++;
+				while (t.charAt(j) != ',') {
+					j ++;
+				}
+				i++;
+				String Syn = t.substring(i, j);
+				j ++;
+				String Gloss = t.substring(j); 
+				Vertice t2 = new Vertice(ID, Syn, Gloss);
+				myVerticeSet.put(t2.getMyID(), t2);
+				System.out.println("ID = " + t2.getMyID());
+				System.out.println("    SYN = " + t2.getMySyn());
+				System.out.println("    Gloss = " + t2.getMyGloss());
+			}
+			temp.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (int i = 0; i < myVerticeSet.size(); i ++) {
+			System.out.println("index = " + i);
+			System.out.println("ID = " + myVerticeSet.get(i).getMyID());
+			System.out.println("    SYN = " + myVerticeSet.get(i).getMySyn());
+			System.out.println("    Gloss = " + myVerticeSet.get(i).getMyGloss());
+		}
+	}
+}
+class Vertice {
+	private int myID;
+	private List<String> mySyn;
+	private String myGloss;
+	public Vertice (int ID, String Synset, String gloss){
+		myID = ID;
+		mySyn = synsplit(Synset);
+		myGloss = gloss;
+	}
+	private final List<String> synsplit(String Syn) {
+		List<String> temp = new ArrayList<>();
+		int i = 0;
+		int j = 0;
+		while(i < Syn.length()) {
+			
+			if(Syn.charAt(i) != ' ') {
+				i ++;
+			} else {
+				i --;
+				temp.add(Syn.substring(j, i));
+				i ++;
+				i ++;
+				j = i;
+			}
+			if(i == Syn.length()) {
+				temp.add(Syn.substring(j, i));
+			}
+		}
+		return temp;
+	}
+	public int getMyID() {
+		return myID;
+	}
+	public List<String> getMySyn() {
+		return mySyn;
+	}
+	public String getMyGloss() {
+		return myGloss;
+	}
+}
+
+

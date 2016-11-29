@@ -1,0 +1,151 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * class to create the 2 lists
+ * @author RickYang
+ *
+ */
+public class Diagraph {
+	/**
+	 * the adjacency list.
+	 */
+	private Map<Integer, Vertice> myVerticeSet;
+	/**
+	 * the single item
+	 */
+	private Map<Integer, ArrayList<Integer>> myEdgeList;
+	/**
+	 * constructor
+	 * @param VerticeName vertice file name(synsets.txt)
+	 * @param EdgeName edge file name(basically hypernyms.txt)
+	 */
+	public Diagraph(String VerticeName, String EdgeName) {
+		myVerticeSet = new HashMap<>();
+		myEdgeList = new HashMap<>();
+		readinE(EdgeName);
+		readinV(VerticeName);
+	}
+	/**
+	 * return the vertice list
+	 * @return
+	 */
+	public Map<Integer, Vertice> getMyVerticeSet() {
+		return myVerticeSet;
+	}
+	/**
+	 * return the adjacency list
+	 * @return
+	 */
+	public Map<Integer, ArrayList<Integer>> getmyEdgeList() {
+		return myEdgeList;
+	}
+	/**
+	 * method to read in the edge file
+	 * @param EdgeName name of the edge file
+	 */
+	private final void readinE(String EdgeName) {
+		File in = new File(EdgeName);
+		try {
+			Scanner temp = new Scanner(in);
+			while (temp.hasNext()) {
+				ArrayList<Integer> Edges = new ArrayList<>();
+				findInt(temp.nextLine(), Edges);
+				myEdgeList.put(Edges.get(0), Edges);	
+				//System.out.println(Edges);
+			}
+			//System.out.println(myEdgeList);
+			temp.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * help method to find the integers in a string
+	 * @param s the string looking for 
+	 * @param r the list of integer found
+	 */
+	private final void findInt(String s, List<Integer> r) {
+		int i;
+		if (s.length() != 0) {
+			for(i = 0; i < s.length() && s.charAt(i) != ','; i ++) ;
+			r.add(Integer.valueOf(s.substring(0, i)));
+			i ++;
+			if (i < s.length()) {
+				findInt(s.substring(i), r);
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * helper method to read in vertice file
+	 * @param VerticeName name of the vertice file
+	 */
+	private final void readinV(String VerticeName) {
+		File in = new File(VerticeName);
+		try {
+			Scanner temp = new Scanner(in);
+			while (temp.hasNext()) {
+				String t = temp.nextLine();
+				int i = 0; 
+				while (t.charAt(i) != ',') {
+					i ++;
+				}
+				int ID = Integer.valueOf(t.substring(0, i));
+				int j = i;
+				j ++;
+				while (t.charAt(j) != ',') {
+					j ++;
+				}
+				i++;
+				String Syn = t.substring(i, j).toLowerCase();
+				j ++;
+				String Gloss = t.substring(j).toLowerCase(); 
+				Vertice t2 = new Vertice(ID, Syn, Gloss);
+				myVerticeSet.put(t2.getMyID(), t2);
+			}
+			temp.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
+/**
+ * inner class of vertice
+ * @author Yicong Yang
+ *
+ */
+class Vertice {
+	private int myID;
+	private String mySyn;
+	private String myGloss;
+	public Vertice (int ID, String Synset, String gloss){
+		myID = ID;
+		mySyn = Synset;
+		myGloss = gloss;
+	}
+	
+	public int getMyID() {
+		return myID;
+	}
+	public String getMySyn() {
+		return mySyn;
+	}
+	public String getMyGloss() {
+		return myGloss;
+	}
+}
+
+

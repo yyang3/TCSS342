@@ -1,0 +1,118 @@
+
+import java.util.ArrayList;
+import java.util.List;
+/**
+ * WordNet class
+ * @author Yicong Yang
+ *
+ */
+public class WordNet {
+	private Diagraph a;
+	private SAP b;
+	/**
+	 * Test everything here!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 * @param args
+	 */
+	public static void main(String[] args){
+		WordNet a = new WordNet("synsets.txt","hypernyms.txt");
+		String c = a.sap("sieva_bean butter_bean butter-bean_plant lima_bean Phaseolus_lunatus", "organism being");
+		System.out.println(c);
+		System.out.println(a.distance("sieva_bean butter_bean butter-bean_plant lima_bean Phaseolus_lunatus", "organism being"));
+	}
+	// constructor takes the name of the two input files
+	public WordNet(String firstfile, String secondfile){
+		if(firstfile == null || secondfile == null) {
+			throw new java.lang.NullPointerException("first file or second file doesn't exist.");
+		} else {
+			a = new Diagraph (firstfile,  secondfile);
+			b = new SAP(a.getmyEdgeList());
+		}
+	}
+
+	// returns all WordNet nouns
+	public Iterable<String> nouns(){
+		List<String> temp = new ArrayList<>();
+		for(Vertice s : a.getMyVerticeSet().values()) {
+			temp.add(s.getMySyn()); 
+		}
+		return temp;
+
+	}
+
+	// is the word a WordNet noun?
+	public boolean isNoun(String word){
+		boolean re = false;
+		for (String s : nouns()) {
+			if (s.equalsIgnoreCase(word)) {
+				re = true;
+				break;
+			}
+		}
+		return re;
+
+	}
+
+	// distance between nounA and nounB (defined below)
+	public int distance(String nounA, String nounB){
+		int c = 0;
+		int d = 0;
+		int q = -1;
+		if (isNoun(nounA)) {
+			if (isNoun(nounB)) {
+				for (Vertice s : a.getMyVerticeSet().values()) {
+					if (s.getMySyn().equalsIgnoreCase(nounA)) {
+						c = s.getMyID();
+					}
+					if (s.getMySyn().equalsIgnoreCase(nounB)) {
+						d = s.getMyID();
+					} 
+				}
+				q = b.length(c, d);
+			} else {
+				System.out.println("Noun B is not in the list.");
+			}
+		} else {
+			System.out.println("Noun A is not in the list.");
+		}
+		return q;
+	}
+
+	// a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
+	// in a shortest ancestral path (defined below)
+	public String sap(String nounA, String nounB){
+		int c = 0;
+		int d = 0;
+		int q = -1;
+		if (isNoun(nounA)) {
+			if (isNoun(nounB)) {
+				for (Vertice s : a.getMyVerticeSet().values()) {
+					if (s.getMySyn().equalsIgnoreCase(nounA)) {
+						c = s.getMyID();
+					}
+					if (s.getMySyn().equalsIgnoreCase(nounB)) {
+						d = s.getMyID();
+					} 
+				}
+				q = b.ancestor(c, d);
+			} else {
+				System.out.println("Noun B is not in the list.");
+			}
+		} else {
+			System.out.println("Noun A is not in the list.");
+		}
+		if (q != -1) {
+			return a.getMyVerticeSet().get(q).getMySyn();
+		} else {
+			return "-1";
+		}
+		
+		
+	}
+
+
+
+
+
+
+}
+

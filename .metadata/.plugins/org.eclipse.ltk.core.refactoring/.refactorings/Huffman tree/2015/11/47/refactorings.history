@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;head&apos; in &apos;Decoder.decode(...)&apos; to &apos;scan&apos;&#x0D;&#x0A;- Original project: &apos;Huffman tree&apos;&#x0D;&#x0A;- Original element: &apos;Decoder.decode(String, HuffmanTree).head&apos;&#x0D;&#x0A;- Renamed element: &apos;head&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;head&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{Decoder.java[Decoder~decode~QString;~QHuffmanTree;@head!138!178!154!157!QHuffmanTreeNode;!0!false" name="scan" references="true" stamp="1447882403142" version="1.0"/>
+</session>

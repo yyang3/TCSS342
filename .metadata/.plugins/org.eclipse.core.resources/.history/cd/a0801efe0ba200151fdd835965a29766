@@ -1,0 +1,10 @@
+
+public class HashTester {
+
+	public static void main(String[] args) {
+		HashDict a = new HashDict();
+		a.output();
+
+	}
+
+}
